@@ -85,7 +85,7 @@ class Configuration(object):
     @staticmethod
     def from_file(directory='', extension='yaml'):
         """
-        Load configuration from file.
+        Read configurations from file.
 
         Args:
             directory: Directory containing the configuration file.
@@ -93,6 +93,9 @@ class Configuration(object):
                 directory of script execution.
             extension: The extension determining the configuration
                 file format. Defaults to 'yaml'.
+
+        Returns:
+            The configurations read from file.
         """
         cfile = Configuration.get_cfile_path(directory, extension)
 
@@ -102,4 +105,4 @@ class Configuration(object):
                 conf = yaml.load(f, Loader=yaml.RoundTripLoader)
                 conf = dict(conf)
 
-        Configuration.load(conf)
+        return conf

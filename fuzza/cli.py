@@ -48,8 +48,8 @@ def fuzz():
     """
     Execute the fuzzer.
     """
-    Configuration.from_file()
-    print(Configuration.CONFIG)
+    conf = Configuration.from_file()
+    Configuration.load(conf)
 
 
 if __name__ == '__main__':
