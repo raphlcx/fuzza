@@ -18,7 +18,7 @@ def cli():
 @click.option('--host',
               type=str,
               metavar='<host>',
-              prompt='Target hostname or IP address',
+              prompt='Target hostname or IP',
               help='The hostname of target to fuzz.')
 @click.option('--port',
               type=int,
@@ -33,13 +33,12 @@ def cli():
 @click.option('--template-path',
               type=str,
               metavar='<path>',
-              prompt='Path to fuzzing template',
+              prompt='Path to template files',
               help='Path containing template files. Support glob patterns.')
 def init(**kwargs):
     """
     Create a fuzzer configuration file.
     """
-    print(kwargs)
     Configuration.load(kwargs)
     Configuration.to_file()
 
