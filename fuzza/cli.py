@@ -1,12 +1,12 @@
 import click
 
 from . import __version__
-from . import prog
+from . import __prog__
 from .configuration import Configuration
 
 
 @click.group()
-@click.version_option(version=__version__, prog_name=prog)
+@click.version_option(version=__version__, prog_name=__prog__)
 def cli():
     """
     A generic template-based fuzzer.
