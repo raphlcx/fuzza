@@ -10,6 +10,13 @@ from .exception import ClassNotInstantiableError
 class Configuration(object):
     """
     A static object for storing operational configurations.
+
+    This class is essentially a global object holding the configuration
+    values. Hence, it should never be mutated after it has benn set
+    initially.
+
+    Future improvemnet may use an immutable `dict` to hold the
+    configuration values.
     """
 
     CONFIG = {}
@@ -43,7 +50,7 @@ class Configuration(object):
         Load configuration into the static configuration object.
 
         Args:
-            config: A `dict` containing the configurtions.
+            config: A `dict` containing the configurations.
         """
         Configuration.CONFIG.update(config)
 
