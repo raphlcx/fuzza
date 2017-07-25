@@ -5,6 +5,13 @@ import io
 class DataBroker(object):
     """
     Read data and apply transformation to it as necessary.
+
+    Args:
+        config: A `dict` containing the fuzzer configurations.
+
+    Attributes:
+        _data_path: Path to data files as specified in configuration.
+        _data: A list of data loaded from data files.
     """
 
     def __init__(self, config):

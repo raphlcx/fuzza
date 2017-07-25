@@ -7,13 +7,19 @@ class Dispatcher(object):
 
     Args:
         config: A `dict` containing the fuzzer configurations.
+
+    Attributes:
+        _host: Host of target as specifed in configuration.
+        _port: Port of target as specifed in configuration.
+        _s: Socket object for target connection.
+        _bufsize: Buffer size for data received from socket.
     """
 
     def __init__(self, config):
         self._host = config.get('host')
         self._port = config.get('port')
         self._s = None
-        self._buffsize = 4096
+        self._bufsize = 4096
 
     def open(self):
         """
@@ -35,7 +41,7 @@ class Dispatcher(object):
             The response received from target after the dispatch.
         """
         self._s.send(payload + b'\n')
-        return self._s.recv(self._buffsize)
+        return self._s.recv(self._bufsize)
 
     def close(self):
         """

@@ -17,6 +17,10 @@ class Configuration(object):
 
     Future improvemnet may use an immutable `dict` to hold the
     configuration values.
+
+    Raises:
+        ClassNotInstantiableError: If this class is attempted to be
+            instantiated.
     """
 
     CONFIG = {}

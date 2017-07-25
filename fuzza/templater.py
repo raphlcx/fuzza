@@ -10,6 +10,11 @@ class Templater(object):
 
     Args:
         config: A `dict` containing the fuzzer configurations.
+
+    Attributes:
+        _template_path: Path to template files as specified in
+            configuration.
+        _template: A list of template loaded from template files.
     """
 
     def __init__(self, config):
