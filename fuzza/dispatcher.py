@@ -6,7 +6,7 @@ class Dispatcher(object):
     Dispatch fuzzing payload to system under test.
 
     Args:
-        config: A `dict` containing the configurations.
+        config: A `dict` containing the fuzzer configurations.
     """
 
     def __init__(self, config):
@@ -29,7 +29,7 @@ class Dispatcher(object):
         Dispatch the payload to target.
 
         Args:
-            payload: The payload string to send to target.
+            payload: The payload byte string to send to target.
 
         Returns:
             The response received from target after the dispatch.
