@@ -34,3 +34,8 @@ class TestConfiguration(unittest.TestCase):
         self.assertEqual(
             Configuration.get('a'),
             config.get('a'))
+
+    def test_get_configuration_file_path(self):
+        self.assertEqual(
+            str(Configuration.get_cfile_path('/abc/path1', 'yaml')),
+            '/abc/path1/fuzza.conf.yaml')

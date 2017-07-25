@@ -37,12 +37,12 @@ class Configuration(object):
             extension: The extension of the configuration file.
 
         Returns:
-            Resolved path to the configuration file.
+            Path to the configuration file.
         """
         return (
             Path(directory) /
             (Configuration.FILENAME + '.' + extension)
-        ).resolve()
+        )
 
     @staticmethod
     def load(config):
