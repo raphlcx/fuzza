@@ -52,7 +52,9 @@ class Configuration(object):
         Args:
             config: A `dict` containing the configurations.
         """
-        Configuration.CONFIG.update(config)
+        for key, value in config.items():
+            if value is not None and value != '':
+                Configuration.CONFIG[key] = value
 
     @staticmethod
     def get(key):
