@@ -26,14 +26,21 @@ class Templater(object):
 
     def render(self, data):
         """
-        Render data into templates.
+        Render data into templates, and yield the rendered templates.
+        If no template is supplied, yield the data directly.
 
         Args:
             data: A list containing the data.
 
         Returns:
-            A generator function yielding each of the data.
+            A generator function yielding each of the payload.
         """
-        for t in self._template:
-            for d in self._data:
-                yield Template(t).safe_substitute(fuzzdata=d)
+        if not self._template:
+            for d in data:
+                yield d
+
+        else:
+
+            for t in self._template:
+                for d in data:
+                    yield Template(t).safe_substitute(fuzzdata=d)

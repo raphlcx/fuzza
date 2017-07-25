@@ -33,7 +33,6 @@ def cli():
 @click.option('--template-path',
               type=str,
               metavar='<path>',
-              prompt='Path to template files',
               help='Path containing template files. Support glob patterns.')
 def init(**kwargs):
     """
