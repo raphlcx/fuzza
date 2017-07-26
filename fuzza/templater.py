@@ -25,6 +25,9 @@ class Templater(object):
         """
         Scan template path for template files.
         """
+        if self._template_path is None:
+            return
+
         for tf in glob.iglob(self._template_path):
             with io.open(tf, 'rt', encoding='utf-8') as f:
                 self._template.append(f.read())

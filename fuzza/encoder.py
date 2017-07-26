@@ -30,6 +30,9 @@ class Encoder(object):
         Returns:
             The list of data which have gone through encoding.
         """
+        if self._encoding is None:
+            return data
+
         data_tmp = data
 
         for enc in self._encoding:

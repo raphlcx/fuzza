@@ -27,3 +27,8 @@ class TestProtocol(unittest.TestCase):
         self.assertEqual(
             p.convert(data),
             expected)
+
+    def test_default_protocol_on_empty_config(self):
+        p = Protocol({})
+
+        self.assertIsNotNone(p._protocol)

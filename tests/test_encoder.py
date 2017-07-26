@@ -59,3 +59,10 @@ class TestEncoder(unittest.TestCase):
         self.assertListEqual(
             e.encode(self.data),
             expected)
+
+    def test_empty_encoding_config_returns_original_data(self):
+        e = Encoder({})
+
+        self.assertListEqual(
+            e.encode(self.data),
+            self.data)

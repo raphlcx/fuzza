@@ -19,7 +19,7 @@ class Protocol(object):
     )
 
     def __init__(self, config):
-        self._protocol = config.get('protocol')
+        self._protocol = config.get('protocol') or 'textual'
 
     def convert(self, data):
         """
