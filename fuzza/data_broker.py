@@ -4,7 +4,7 @@ import io
 
 class DataBroker(object):
     """
-    Read data and apply transformation to it as necessary.
+    Read data from data files.
 
     Args:
         config: A `dict` containing the fuzzer configurations.
@@ -30,3 +30,8 @@ class DataBroker(object):
         for df in glob.iglob(self._data_path):
             with io.open(df, 'rt', encoding='utf-8') as f:
                 self._data += f.read().splitlines()
+
+    @property
+    def data(self):
+        """The list containing loaded data contents."""
+        return self._data
