@@ -38,7 +38,7 @@ class Templater(object):
             data: A list containing the data.
 
         Returns:
-            A generator function yielding each of the payload.
+            A generator yielding each of the payload.
         """
         if not self._template:
             for d in data:
