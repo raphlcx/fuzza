@@ -4,6 +4,7 @@ from . import __version__
 from . import __prog__
 from .configuration import Configuration
 from .encoder import Encoder
+from .protocol import Protocol
 
 
 def validate_encoder(ctx, param, value):
@@ -54,7 +55,7 @@ def cli():
               type=str,
               metavar='[path]',
               help='Path containing template files. Support glob patterns.')
-@click.option('--encoder',
+@click.option('--encoding',
               type=str,
               metavar=(
                   '[{enc}[, ...]]'
@@ -62,6 +63,9 @@ def cli():
               ),
               callback=validate_encoder,
               help='List of encoding to be sequentially applied to fuzz data.')
+@click.option('--protocol',
+              type=click.Choice(Protocol.ACCEPTED_PROTOCOL),
+              help='Type of communication protocol.')
 def init(**kwargs):
     """
     Create a fuzzer configuration file.
