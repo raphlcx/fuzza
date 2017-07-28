@@ -37,21 +37,9 @@ class Encoder(object):
 
         for enc in self._encoding:
             if enc == 'base64':
-                data_tmp = [
-                    str(
-                        base64.b64encode(bytes(d, 'utf-8')),
-                        'utf-8'
-                    )
-                    for d in data_tmp
-                ]
+                data_tmp = [base64.b64encode(d) for d in data_tmp]
 
             if enc == 'hex':
-                data_tmp = [
-                    str(
-                        binascii.hexlify(bytes(d, 'utf-8')),
-                        'utf-8'
-                    )
-                    for d in data_tmp
-                ]
+                data_tmp = [binascii.hexlify(d) for d in data_tmp]
 
         return data_tmp

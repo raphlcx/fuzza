@@ -9,7 +9,7 @@ class TestTemplater(unittest.TestCase):
         config = {}
         t = Templater(config)
 
-        data = ['1', '2', '3']
+        data = [b'1', b'2', b'3']
 
         self.assertListEqual(
             list(t.render(data)),
@@ -19,13 +19,13 @@ class TestTemplater(unittest.TestCase):
         config = {}
         t = Templater(config)
 
-        data = ['1', '2', '3']
+        data = [b'1', b'2', b'3']
         # Patch the templater
-        t._template = ['$fuzzdata abc', 'def $fuzzdata']
+        t._template = [b'$fuzzdata abc', b'def $fuzzdata']
 
         expected = [
-            '1 abc', '2 abc', '3 abc',
-            'def 1', 'def 2', 'def 3'
+            b'1 abc', b'2 abc', b'3 abc',
+            b'def 1', b'def 2', b'def 3'
         ]
 
         self.assertListEqual(

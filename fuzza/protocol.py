@@ -3,8 +3,11 @@ import binascii
 
 class Protocol(object):
     """
-    Convert non-textual string representation of data to its textual
-    representation, e.g. hex string to textual string.
+    Adapt payload to be transmitted to the type of communication
+    protocol used.
+
+    For instance, byte literal containing hex string is converted to
+    a byte literal with its binary representation.
 
     Args:
         config: A `dict` containing the fuzzer configurations.
@@ -23,24 +26,21 @@ class Protocol(object):
 
     def convert(self, data):
         """
-        Convert the supplied string to its textual representation, if
-        it is not one.
+        Convert the supplied data to its bianry representation.
 
         Args:
             data: The string to be converted.
 
         Returns:
-            The converted string in textual representation.
+            The converted string in binary representation.
         """
         if self._protocol == 'textual':
-            # No conversion needed
+            # Payloads for textual protocol are in bytes literals,
+            # hence no conversion is needed
             return data
 
         elif self._protocol == 'binary':
             # When protocol is binary, it is assumed that template
             # and data are both in hex string format, hence conversion
             # is required
-            return str(
-                binascii.unhexlify(bytes(data, 'utf-8')),
-                'utf-8'
-            )
+            return binascii.unhexlify(data)

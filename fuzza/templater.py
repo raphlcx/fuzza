@@ -1,8 +1,6 @@
 import glob
 import io
 
-from string import Template
-
 
 class Templater(object):
     """
@@ -29,7 +27,7 @@ class Templater(object):
             return
 
         for tf in glob.iglob(self._template_path):
-            with io.open(tf, 'rt', encoding='utf-8') as f:
+            with io.open(tf, 'rb') as f:
                 self._template.append(f.read())
 
     def render(self, data):
@@ -51,4 +49,4 @@ class Templater(object):
 
             for t in self._template:
                 for d in data:
-                    yield Template(t).safe_substitute(fuzzdata=d)
+                    yield t.replace(b'$fuzzdata', d)

@@ -28,7 +28,7 @@ class DataBroker(object):
         there are numerous data.
         """
         for df in glob.iglob(self._data_path):
-            with io.open(df, 'rt', encoding='utf-8') as f:
+            with io.open(df, 'rb') as f:
                 self._data += f.read().splitlines()
 
     @property

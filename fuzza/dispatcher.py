@@ -40,7 +40,7 @@ class Dispatcher(object):
         Returns:
             The response received from target after the dispatch.
         """
-        self._s.send(bytes(payload, 'utf-8') + b'\n')
+        self._s.send(payload + b'\n')
         return self._s.recv(self._bufsize)
 
     def close(self):

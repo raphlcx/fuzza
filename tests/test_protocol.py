@@ -10,7 +10,7 @@ class TestProtocol(unittest.TestCase):
             'protocol': 'textual'
         }
         p = Protocol(config)
-        data = 'this is string'
+        data = b'this is string'
 
         self.assertEqual(
             p.convert(data),
@@ -21,8 +21,8 @@ class TestProtocol(unittest.TestCase):
             'protocol': 'binary'
         }
         p = Protocol(config)
-        data = '7468697320697320737472696e67'
-        expected = 'this is string'
+        data = b'7468697320697320737472696e67'
+        expected = b'this is string'
 
         self.assertEqual(
             p.convert(data),
