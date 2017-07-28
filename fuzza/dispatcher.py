@@ -41,7 +41,15 @@ class Dispatcher(object):
             The response received from target after the dispatch.
         """
         self._s.send(payload + b'\n')
-        return self._s.recv(self._bufsize)
+
+        buff = b''
+        while True:
+            b = self._s.recv(self._bufsize)
+            if not b:
+                break
+            buff += b
+
+        return buff
 
     def close(self):
         """
