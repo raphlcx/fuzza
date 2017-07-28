@@ -1,4 +1,5 @@
 import binascii
+import re
 
 
 class Protocol(object):
@@ -15,6 +16,8 @@ class Protocol(object):
     Attributes:
         _protocol: The type of communication protocol of the target to
             be fuzzed.
+        _re_whitespace: Compiled regular expression pattern for
+            whitespace.
     """
     ACCEPTED_PROTOCOL = (
         'textual',
@@ -23,6 +26,7 @@ class Protocol(object):
 
     def __init__(self, config):
         self._protocol = config.get('protocol') or 'textual'
+        self._re_whitespace = re.compile(b'\s')
 
     def convert(self, data):
         """
@@ -42,5 +46,7 @@ class Protocol(object):
         elif self._protocol == 'binary':
             # When protocol is binary, it is assumed that template
             # and data are both in hex string format, hence conversion
-            # is required
-            return binascii.unhexlify(data)
+            # is required. Whitespaces are strip prior to conversion
+            return binascii.unhexlify(
+                re.sub(self._re_whitespace, b'', data)
+            )
