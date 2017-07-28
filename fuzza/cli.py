@@ -3,8 +3,11 @@ import click
 from . import __version__
 from . import __prog__
 from .configuration import Configuration
+from .data_broker import DataBroker
+from .dispatcher import Dispatcher
 from .encoder import Encoder
 from .protocol import Protocol
+from .templater import Templater
 
 
 def validate_encoder(ctx, param, value):
@@ -12,6 +15,9 @@ def validate_encoder(ctx, param, value):
     Validate the encoder input. Input should consist only of the
     accepted type of encoding. Multiple values are comma-separated.
     """
+    if value is None:
+        return
+
     encoders = value.split(',')
     for enc in encoders:
         if enc not in Encoder.ACCEPTED_ENCODING:
@@ -81,6 +87,24 @@ def fuzz():
     """
     conf = Configuration.from_file()
     Configuration.load(conf)
+
+    databrk = DataBroker(Configuration.CONFIG)
+    databrk.scan()
+
+    templater = Templater(Configuration.CONFIG)
+    templater.scan()
+
+    encoder = Encoder(Configuration.CONFIG)
+    data = encoder.encode(databrk.data)
+
+    dispatcher = Dispatcher(Configuration.CONFIG)
+    protocol = Protocol(Configuration.CONFIG)
+
+    for payload in templater.render(data):
+        dispatcher.open()
+        print('Sending >', payload)
+        print('Received >', dispatcher.dispatch(protocol.convert(payload)))
+        dispatcher.close()
 
 
 if __name__ == '__main__':
