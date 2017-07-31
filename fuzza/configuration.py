@@ -1,8 +1,6 @@
-import io
-
 from pathlib import Path
 
-from ruamel import yaml
+from ruamel.yaml import YAML
 
 from .exception import ClassNotInstantiableError
 
@@ -87,13 +85,9 @@ class Configuration(object):
         """
         cfile = Configuration.get_cfile_path(directory, extension)
 
-        with io.open(cfile, 'w') as f:
-            if extension == 'yaml':
-                yaml.dump(Configuration.CONFIG,
-                          f,
-                          Dumper=yaml.RoundTripDumper,
-                          allow_unicode=True,
-                          explicit_start=True)
+        if extension == 'yaml':
+            yaml = YAML(pure=True)
+            yaml.dump(Configuration.CONFIG, cfile)
 
     @staticmethod
     def from_file(directory='', extension='yaml'):
@@ -113,9 +107,8 @@ class Configuration(object):
         cfile = Configuration.get_cfile_path(directory, extension)
 
         conf = {}
-        with io.open(cfile, 'r') as f:
-            if extension == 'yaml':
-                conf = yaml.load(f, Loader=yaml.RoundTripLoader)
-                conf = dict(conf)
+        if extension == 'yaml':
+            yaml = YAML(typ='safe', pure=True)
+            conf = yaml.load(cfile)
 
         return conf
