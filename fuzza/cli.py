@@ -1,3 +1,9 @@
+"""
+fuzza.cli
+---------
+
+Entry point to the application.
+"""
 import click
 
 from . import __prog__
@@ -10,26 +16,15 @@ from .protocol import Protocol
 from .templater import Templater
 
 
-def validate_encoder(ctx, param, value):
+def validate_comma_separated(ctx, param, value):
     """
-    Validate the encoder input. Input should consist only of the
-    accepted type of encoding. Multiple values are comma-separated.
+    Validate multiple string input values are comma-separated. Each of
+    the value is put into a list, which is returned after validation.
     """
     if value is None:
         return
 
-    encoders = value.split(',')
-    for enc in encoders:
-        if enc not in Encoder.ACCEPTED_ENCODING:
-            raise click.BadParameter(
-                'invalid encoder: {encoder}. '
-                '(choose from {choices})'
-                .format(
-                    encoder=value,
-                    choices=', '.join(Encoder.ACCEPTED_ENCODING)
-                )
-            )
-    return encoders
+    return value.split(',')
 
 
 @click.group()
@@ -61,13 +56,10 @@ def cli():
               type=str,
               metavar='[path]',
               help='Path containing template files. Support glob patterns.')
-@click.option('--encoding',
+@click.option('--encoder',
               type=str,
-              metavar=(
-                  '[{enc}[, ...]]'
-                  .format(enc='|'.join(Encoder.ACCEPTED_ENCODING))
-              ),
-              callback=validate_encoder,
+              metavar='[encoder[, ...]]',
+              callback=validate_comma_separated,
               help='List of encoding to be sequentially applied to fuzz data.')
 @click.option('--protocol',
               type=click.Choice(Protocol.ACCEPTED_PROTOCOL),
