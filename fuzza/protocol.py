@@ -1,5 +1,11 @@
 import binascii
+import logging
 import re
+
+from .logger import Logger
+
+LOGGER = Logger.get_logger(__name__)
+IS_DEBUG = LOGGER.isEnabledFor(logging.DEBUG)
 
 
 class Protocol(object):
@@ -20,13 +26,16 @@ class Protocol(object):
             whitespace.
     """
     ACCEPTED_PROTOCOL = (
-        'textual',
+        'textual',  # First one is the default value if none is specified
         'binary'
     )
 
     def __init__(self, config):
-        self._protocol = config.get('protocol') or 'textual'
+        self._protocol = config.get('protocol') or \
+            Protocol.ACCEPTED_PROTOCOL[0]
         self._re_whitespace = re.compile(b'\s')
+
+        LOGGER.info('Target communication protocol: %s', self._protocol)
 
     def convert(self, data):
         """

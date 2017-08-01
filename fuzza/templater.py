@@ -1,5 +1,11 @@
 import glob
 import io
+import logging
+
+from .logger import Logger
+
+LOGGER = Logger.get_logger(__name__)
+IS_DEBUG = LOGGER.isEnabledFor(logging.DEBUG)
 
 
 class Templater(object):
@@ -29,6 +35,12 @@ class Templater(object):
         for tf in glob.iglob(self._template_path):
             with io.open(tf, 'rb') as f:
                 self._template.append(f.read())
+
+        LOGGER.info(
+            'Found %d templates from %s',
+            len(self._template),
+            self._template_path
+        )
 
     def render(self, data):
         """

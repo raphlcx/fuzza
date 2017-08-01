@@ -1,7 +1,7 @@
 import click
 
-from . import __version__
 from . import __prog__
+from . import __version__
 from .configuration import Configuration
 from .data_broker import DataBroker
 from .dispatcher import Dispatcher
@@ -102,8 +102,7 @@ def fuzz():
 
     for payload in templater.render(data):
         dispatcher.open()
-        print('Sending >', payload)
-        print('Received >', dispatcher.dispatch(protocol.convert(payload)))
+        dispatcher.dispatch(protocol.convert(payload))
         dispatcher.close()
 
 

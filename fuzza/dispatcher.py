@@ -1,4 +1,10 @@
+import logging
 import socket
+
+from .logger import Logger
+
+LOGGER = Logger.get_logger(__name__)
+IS_DEBUG = LOGGER.isEnabledFor(logging.DEBUG)
 
 
 class Dispatcher(object):
@@ -40,6 +46,7 @@ class Dispatcher(object):
         Returns:
             The response received from target after the dispatch.
         """
+        LOGGER.info("Sending %s", payload)
         self._s.send(payload + b'\n')
 
         buff = b''
@@ -48,6 +55,8 @@ class Dispatcher(object):
             if not b:
                 break
             buff += b
+
+        LOGGER.info("Received %s", buff)
 
         return buff
 

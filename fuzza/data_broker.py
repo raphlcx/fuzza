@@ -1,5 +1,11 @@
 import glob
 import io
+import logging
+
+from .logger import Logger
+
+LOGGER = Logger.get_logger(__name__)
+IS_DEBUG = LOGGER.isEnabledFor(logging.DEBUG)
 
 
 class DataBroker(object):
@@ -30,6 +36,12 @@ class DataBroker(object):
         for df in glob.iglob(self._data_path):
             with io.open(df, 'rb') as f:
                 self._data += f.read().splitlines()
+
+        LOGGER.info(
+            'Found %d data from %s',
+            len(self._data),
+            self._data_path
+        )
 
     @property
     def data(self):

@@ -1,5 +1,11 @@
 import base64
 import binascii
+import logging
+
+from .logger import Logger
+
+LOGGER = Logger.get_logger(__name__)
+IS_DEBUG = LOGGER.isEnabledFor(logging.DEBUG)
 
 
 class Encoder(object):
@@ -19,6 +25,8 @@ class Encoder(object):
 
     def __init__(self, config):
         self._encoding = config.get('encoding')
+
+        LOGGER.info('Encodings to apply: %s', self._encoding)
 
     def encode(self, data):
         """

@@ -1,8 +1,14 @@
+import logging
+
 from pathlib import Path
 
 from ruamel.yaml import YAML
 
 from .exception import ClassNotInstantiableError
+from .logger import Logger
+
+LOGGER = Logger.get_logger(__name__)
+IS_DEBUG = LOGGER.isEnabledFor(logging.DEBUG)
 
 
 class Configuration(object):
@@ -89,6 +95,11 @@ class Configuration(object):
             yaml = YAML(pure=True)
             yaml.dump(Configuration.CONFIG, cfile)
 
+        LOGGER.info('Stored configuration to file: %s', cfile)
+
+        if IS_DEBUG:
+            LOGGER.debug('Config: %s', Configuration.CONFIG)
+
     @staticmethod
     def from_file(directory='', extension='yaml'):
         """
@@ -110,5 +121,10 @@ class Configuration(object):
         if extension == 'yaml':
             yaml = YAML(typ='safe', pure=True)
             conf = yaml.load(cfile)
+
+        LOGGER.info('Read configuration from file: %s', cfile)
+
+        if IS_DEBUG:
+            LOGGER.debug('Config: %s', conf)
 
         return conf
