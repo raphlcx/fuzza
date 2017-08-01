@@ -26,7 +26,7 @@ class Encoder(object):
     def __init__(self, config):
         self._encoding = config.get('encoding')
 
-        LOGGER.info('Encodings to apply: %s', self._encoding)
+        LOGGER.info('Encodings to apply: %s', self._encoding or [])
 
     def encode(self, data):
         """

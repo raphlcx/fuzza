@@ -1,19 +1,29 @@
 ---
 version: 1
 formatters:
-  simple:
+  console:
+    format: "%(message)s"
+  logfile:
     format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
 
 handlers:
   console:
     class: logging.StreamHandler
     level: INFO
-    formatter: simple
+    formatter: console
     stream: ext://sys.stdout
+  logfile:
+    class: logging.FileHandler
+    level: DEBUG
+    formatter: logfile
+    filename: fuzza.log
+    mode: w
+    encoding: utf-8
 
 loggers:
   fuzza:
-    level: INFO
+    level: DEBUG
     handlers:
       - console
+      - logfile
     propagate: false
