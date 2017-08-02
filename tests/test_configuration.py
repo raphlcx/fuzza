@@ -1,7 +1,6 @@
 import unittest
 
 from fuzza.configuration import Configuration
-from fuzza.exception import ClassNotInstantiableError
 
 
 class TestConfiguration(unittest.TestCase):
@@ -10,7 +9,7 @@ class TestConfiguration(unittest.TestCase):
         Configuration.CONFIG = {}
 
     def test_class_instantiation_fails(self):
-        with self.assertRaises(ClassNotInstantiableError):
+        with self.assertRaises(Exception):
             Configuration()
 
     def test_configuration_loading(self):
@@ -22,7 +21,8 @@ class TestConfiguration(unittest.TestCase):
 
         self.assertDictEqual(
             Configuration.CONFIG,
-            config)
+            config
+        )
 
     def test_configuration_get(self):
         config = {
@@ -33,12 +33,14 @@ class TestConfiguration(unittest.TestCase):
 
         self.assertEqual(
             Configuration.get('a'),
-            config.get('a'))
+            config.get('a')
+        )
 
     def test_get_configuration_file_path(self):
         self.assertEqual(
             str(Configuration.get_cfile_path('/abc/path1', 'yaml')),
-            '/abc/path1/fuzza.conf.yaml')
+            '/abc/path1/fuzza.conf.yaml'
+        )
 
     def test_empty_configuration_value_is_not_included(self):
         config = {
@@ -50,4 +52,5 @@ class TestConfiguration(unittest.TestCase):
 
         self.assertDictEqual(
             Configuration.CONFIG,
-            {'a': 1})
+            {'a': 1}
+        )

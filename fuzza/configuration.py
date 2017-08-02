@@ -4,7 +4,6 @@ from pathlib import Path
 
 from ruamel.yaml import YAML
 
-from .exception import ClassNotInstantiableError
 from .logger import Logger
 
 LOGGER = Logger.get_logger(__name__)
@@ -31,9 +30,10 @@ class Configuration(object):
     FILENAME = 'fuzza.conf'
 
     def __new__(cls):
-        raise ClassNotInstantiableError(
-            "Attempting to initialize non-instantiable class `{}'"
-            .format(cls.__name__))
+        raise Exception(
+            'Attempting to initialize non-instantiable class',
+            __name__
+        )
 
     @staticmethod
     def get_cfile_path(directory, extension):
