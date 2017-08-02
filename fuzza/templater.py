@@ -1,3 +1,10 @@
+"""
+fuzza.templater
+---------------
+
+This module is used to handle the reading of template file and its
+rendering with fuzz data.
+"""
 import glob
 import io
 import logging
@@ -8,57 +15,52 @@ LOGGER = Logger.get_logger(__name__)
 IS_DEBUG = LOGGER.isEnabledFor(logging.DEBUG)
 
 
-class Templater(object):
+def read(config):
     """
-    Reponsible for applying fuzz data to template file.
+    Read template from template files.
 
     Args:
-        config: A `dict` containing the fuzzer configurations.
+        config (dict): The fuzzer configuration.
 
-    Attributes:
-        _template_path: Path to template files as specified in
-            configuration.
-        _template: A list of template loaded from template files.
+    Returns:
+        list: The list of templates.
     """
+    template_path = config.get('template_path')
+    templates = []
 
-    def __init__(self, config):
-        self._template_path = config.get('template_path')
-        self._template = []
+    if template_path is not None:
 
-    def scan(self):
-        """
-        Scan template path for template files.
-        """
-        if self._template_path is None:
-            return
+        for tfile in glob.iglob(template_path):
+            with io.open(tfile, 'rb') as f:
+                templates.append(f.read())
 
-        for tf in glob.iglob(self._template_path):
-            with io.open(tf, 'rb') as f:
-                self._template.append(f.read())
+    LOGGER.info(
+        'Found %d templates from %s',
+        len(templates),
+        template_path
+    )
 
-        LOGGER.info(
-            'Found %d templates from %s',
-            len(self._template),
-            self._template_path
-        )
+    return templates
 
-    def render(self, data):
-        """
-        Render data into templates, and yield the rendered templates.
-        If no template is supplied, yield the data directly.
 
-        Args:
-            data: A list containing the data.
+def render(templates, data):
+    """
+    Render data into template to generate payload. This is a generator
+    and yields the payload in each iteration.
 
-        Returns:
-            A generator yielding each of the payload.
-        """
-        if not self._template:
+    Args:
+        templates (list): A list containing the templates.
+        data (list): A list containing the data.
+
+    Returns:
+        str: The payload in bytes literals.
+    """
+    if not templates:
+        for d in data:
+            yield d
+
+    else:
+
+        for template in templates:
             for d in data:
-                yield d
-
-        else:
-
-            for t in self._template:
-                for d in data:
-                    yield t.replace(b'$fuzzdata', d)
+                yield template.replace(b'$fuzzdata', d)
