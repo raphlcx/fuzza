@@ -93,7 +93,7 @@ def fuzz():
     protocol = Protocol(Configuration.CONFIG)
 
     for payload in templater.render(data):
-        dispatcher.open()
+        dispatcher.connect()
         dispatcher.dispatch(protocol.convert(payload))
         dispatcher.close()
 
