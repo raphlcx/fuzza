@@ -13,7 +13,8 @@ class TestTemplater(unittest.TestCase):
 
         self.assertListEqual(
             list(t.render(data)),
-            data)
+            data
+        )
 
     def test_template_substitution(self):
         config = {}
@@ -27,7 +28,7 @@ class TestTemplater(unittest.TestCase):
             b'1 abc', b'2 abc', b'3 abc',
             b'def 1', b'def 2', b'def 3'
         ]
-
         self.assertListEqual(
             list(t.render(data)),
-            expected)
+            expected
+        )

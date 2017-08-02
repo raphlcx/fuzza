@@ -22,8 +22,7 @@ class Configuration(object):
     configuration values.
 
     Raises:
-        ClassNotInstantiableError: If this class is attempted to be
-            instantiated.
+        Exception: If this class is attempted to be instantiated.
     """
 
     CONFIG = {}

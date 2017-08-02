@@ -21,7 +21,7 @@ class Dispatcher(object):
     fuzzing session.
 
     Args:
-        config (dict): The fuzzer configurations.
+        config (dict): The fuzzer configuration.
     """
 
     def __init__(self, config):

@@ -1,3 +1,9 @@
+"""
+fuzza
+-----
+
+A generic template-based fuzzer.
+"""
 # Script name
 __prog__ = 'Fuzza'
 

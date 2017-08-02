@@ -9,7 +9,7 @@ import click
 from . import __prog__
 from . import __version__
 from .configuration import Configuration
-from .data_broker import DataBroker
+from . import data as Data
 from .dispatcher import Dispatcher
 from .encoder import Encoder
 from .protocol import Protocol
@@ -37,34 +37,46 @@ def cli():
 
 
 @cli.command()
-@click.option('--host',
-              type=str,
-              metavar='<host>',
-              prompt='Target hostname or IP',
-              help='The hostname of target to fuzz.')
-@click.option('--port',
-              type=int,
-              metavar='<port>',
-              prompt='Target port',
-              help='The port of target to fuzz.')
-@click.option('--data-path',
-              type=str,
-              metavar='<path>',
-              prompt='Path to fuzz data',
-              help='Path containing fuzz data. Support glob patterns.')
-@click.option('--template-path',
-              type=str,
-              metavar='[path]',
-              help='Path containing template files. Support glob patterns.')
-@click.option('--encoder',
-              type=str,
-              metavar='[encoder[, ...]]',
-              callback=validate_comma_separated,
-              help='List of encoding to be sequentially applied to fuzz data.')
-@click.option('--protocol',
-              type=str,
-              metavar='[protocol]',
-              help='Type of communication protocol.')
+@click.option(
+    '--host',
+    type=str,
+    metavar='<host>',
+    prompt='Target hostname or IP',
+    help='The hostname of target to fuzz.'
+)
+@click.option(
+    '--port',
+    type=int,
+    metavar='<port>',
+    prompt='Target port',
+    help='The port of target to fuzz.'
+)
+@click.option(
+    '--data-path',
+    type=str,
+    metavar='<path>',
+    prompt='Path to fuzz data',
+    help='Path containing fuzz data. Support glob patterns.'
+)
+@click.option(
+    '--template-path',
+    type=str,
+    metavar='[path]',
+    help='Path containing template files. Support glob patterns.'
+)
+@click.option(
+    '--encoder',
+    type=str,
+    metavar='[encoder[, ...]]',
+    callback=validate_comma_separated,
+    help='List of encoding to be sequentially applied to fuzz data.'
+)
+@click.option(
+    '--protocol',
+    type=str,
+    metavar='[protocol]',
+    help='Type of communication protocol.'
+)
 def init(**kwargs):
     """
     Create a fuzzer configuration file.
@@ -81,14 +93,13 @@ def fuzz():
     conf = Configuration.from_file()
     Configuration.load(conf)
 
-    databrk = DataBroker(Configuration.CONFIG)
-    databrk.scan()
+    data = Data.read(Configuration.CONFIG)
 
     templater = Templater(Configuration.CONFIG)
     templater.scan()
 
     encoder = Encoder(Configuration.CONFIG)
-    data = encoder.encode(databrk.data)
+    data = encoder.encode(data)
 
     dispatcher = Dispatcher(Configuration.CONFIG)
     protocol = Protocol(Configuration.CONFIG)
