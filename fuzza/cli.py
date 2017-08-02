@@ -62,7 +62,8 @@ def cli():
               callback=validate_comma_separated,
               help='List of encoding to be sequentially applied to fuzz data.')
 @click.option('--protocol',
-              type=click.Choice(Protocol.ACCEPTED_PROTOCOL),
+              type=str,
+              metavar='[protocol]',
               help='Type of communication protocol.')
 def init(**kwargs):
     """
@@ -94,7 +95,7 @@ def fuzz():
 
     for payload in templater.render(data):
         dispatcher.connect()
-        dispatcher.dispatch(protocol.convert(payload))
+        dispatcher.dispatch(protocol.adapt(payload))
         dispatcher.close()
 
 
