@@ -4,6 +4,8 @@ fuzza.protocol._textual
 
 The textual protocol adapter module.
 """
+
+
 def adapt(payload):
     """
     Return original payload. No adaptation is required as data in

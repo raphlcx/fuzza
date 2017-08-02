@@ -9,9 +9,9 @@ import glob
 import io
 import logging
 
-from .logger import Logger
+from .logger import get_logger
 
-LOGGER = Logger.get_logger(__name__)
+LOGGER = get_logger(__name__)
 IS_DEBUG = LOGGER.isEnabledFor(logging.DEBUG)
 
 
