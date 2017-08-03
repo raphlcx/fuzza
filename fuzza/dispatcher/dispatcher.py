@@ -38,7 +38,7 @@ def init(config):
 
     # Option of whether dispatcher connection should be reused,
     # default to ``False``
-    reuse = config.get('dispatcher_reuse') or False
+    reuse = config.get('reuse') or False
 
     LOGGER.info(
         'Dispatcher connection reuse: %s',

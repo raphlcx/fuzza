@@ -65,11 +65,23 @@ def cli():
     help='Path containing template files. Support glob patterns.'
 )
 @click.option(
+    '--dispatcher',
+    type=str,
+    metavar='[dispatcher]',
+    help='Dispatcher module to use.'
+)
+@click.option(
+    '-r',
+    '--reuse',
+    is_flag=True,
+    help='Enable dispatcher connection reuse.'
+)
+@click.option(
     '--encoder',
     type=str,
     metavar='[encoder[, ...]]',
     callback=validate_comma_separated,
-    help='List of encoding to be sequentially applied to fuzz data.'
+    help='List of encoder modules to be sequentially applied to fuzz data.'
 )
 @click.option(
     '--protocol',
