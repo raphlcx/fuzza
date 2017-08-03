@@ -13,7 +13,7 @@ class TestDispatcher(unittest.TestCase):
         dispatch = init(config)
 
         self.assertEqual(
-            dispatch.__closure__[0].cell_contents.__name__,
+            dispatch.__closure__[1].cell_contents.__name__,
             dispatcher
         )
 
@@ -22,7 +22,7 @@ class TestDispatcher(unittest.TestCase):
         dispatch = init({})
 
         self.assertEqual(
-            dispatch.__closure__[0].cell_contents.__name__,
+            dispatch.__closure__[1].cell_contents.__name__,
             dispatcher
         )
 
@@ -35,6 +35,6 @@ class TestDispatcher(unittest.TestCase):
         expected = ('samplehost', 1000)
 
         self.assertTupleEqual(
-            dispatch.__closure__[1].cell_contents,
+            dispatch.__closure__[3].cell_contents,
             expected
         )

@@ -111,6 +111,8 @@ def fuzz():
     for payload in Templater.render(templates, data):
         dispatch(adapt(payload))
 
+    # Hack: Ensure connection is closed by re-sending the last payload
+    dispatch(adapt(payload), True)
 
 if __name__ == '__main__':
     cli()

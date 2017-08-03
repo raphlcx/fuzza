@@ -36,26 +36,37 @@ def init(config):
         dispatcher_module.__name__
     )
 
+    # Option of whether dispatcher connection should be reused,
+    # default to ``False``
+    reuse = config.get('dispatcher_reuse') or False
+
+    LOGGER.info(
+        'Dispatcher connection reuse: %s',
+        reuse
+    )
+
     # Dispatcher target
     target = (
         config.get('host'),
         config.get('port')
     )
-
     LOGGER.info(
         'Dispatch target: %s',
         target
     )
 
-    # # Connection instance
-    # con = None
+    # Connection instance
+    con = None
 
-    def dispatch(payload):
+    def dispatch(payload, ensure_close=False):
         """
-        Dispatch payload to target.
+        Dispatch payload to target. Target connection is established
+        and closed on every session if connection reuse is not enabled.
 
         Args:
             payload (str): The payload in bytes literals.
+            ensure_close (bool): ``True`` if connection has to be
+                closed, ``False`` otherwise. Defaults to ``False``.
 
         Returns:
             str: The received responses, in bytes literals, from after
@@ -63,9 +74,22 @@ def init(config):
         """
         LOGGER.info('Sending > %s', payload)
 
-        con = dispatcher_module.connect(target)
+        nonlocal con
+
+        # Establish the connection,
+        # if connection reuse is disabled
+        # or it is the first session being established
+        if not reuse or con is None:
+            con = dispatcher_module.connect(target)
+
+        # Dispatch payload and retrieve the response
         response = dispatcher_module.dispatch(con, payload)
-        dispatcher_module.close(con)
+
+        # Close the connection
+        # if connection reuse is disabled
+        # or it is ensured to be closed
+        if not reuse or ensure_close:
+            dispatcher_module.close(con)
 
         LOGGER.info('Received > %s', response)
 
