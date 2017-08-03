@@ -25,16 +25,3 @@ class TestDispatcher(unittest.TestCase):
             dispatch.__closure__[1].cell_contents.__name__,
             dispatcher
         )
-
-    def test_dispatcher_receives_target_host_port(self):
-        config = {
-            'host': 'samplehost',
-            'port': 1000
-        }
-        dispatch = init(config)
-        expected = ('samplehost', 1000)
-
-        self.assertTupleEqual(
-            dispatch.__closure__[3].cell_contents,
-            expected
-        )
