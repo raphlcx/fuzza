@@ -13,53 +13,44 @@ LOGGER = get_logger(__name__)
 IS_DEBUG = LOGGER.isEnabledFor(logging.DEBUG)
 
 
-class Dispatcher(object):
+def init(config):
     """
-    A generic dispatcher class that loads relevant dispatchers.
-
-    This currently supports only the use of one dispatcher in a single
-    fuzzing session.
+    Load relevant dispatcher module.
 
     Args:
         config (dict): The fuzzer configuration.
+
+    Returns:
+        function: The dispatching function.
     """
 
-    def __init__(self, config):
+    # Dispatcher specified in configuration, default to
+    # using TCP dispatcher
+    dispatcher = config.get('dispatcher') or (__package__ + '._tcp')
 
-        #: Dispatcher specified in configuration, default to
-        #: using TCP dispatcher
-        self._dispatcher = config.get('dispatcher') or \
-            __package__ + '._tcp'
+    # Imported module for dispatcher
+    dispatcher_module = importlib.import_module(dispatcher)
 
-        #: Imported module for dispatcher
-        self._loaded_dispatcher = importlib.import_module(self._dispatcher)
+    LOGGER.info(
+        'Dispatcher to use: %s',
+        dispatcher_module.__name__
+    )
 
-        LOGGER.info(
-            'Dispatcher to use: %s',
-            self._loaded_dispatcher.__name__
-        )
+    # Dispatcher target
+    target = (
+        config.get('host'),
+        config.get('port')
+    )
 
-        #: Dispatcher target
-        self._target = (
-            config.get('host'),
-            config.get('port')
-        )
+    LOGGER.info(
+        'Dispatch target: %s',
+        target
+    )
 
-        LOGGER.info(
-            'Dispatch target: %s',
-            self._target
-        )
+    # # Connection instance
+    # con = None
 
-        #: Connection instance
-        self._con = None
-
-    def connect(self):
-        """
-        Establish a connection with the target.
-        """
-        self._con = self._loaded_dispatcher.connect(self._target)
-
-    def dispatch(self, payload):
+    def dispatch(payload):
         """
         Dispatch payload to target.
 
@@ -70,10 +61,12 @@ class Dispatcher(object):
             str: The received responses, in bytes literals, from after
                 the dispatching.
         """
-        return self._loaded_dispatcher.dispatch(self._con, payload)
+        LOGGER.info('Sending > %s', payload)
 
-    def close(self):
-        """
-        Close the connection to the target.
-        """
-        self._loaded_dispatcher.close(self._con)
+        con = dispatcher_module.connect(target)
+        response = dispatcher_module.dispatch(con, payload)
+        dispatcher_module.close(con)
+
+        LOGGER.info('Received > %s', response)
+
+    return dispatch

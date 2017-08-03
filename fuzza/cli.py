@@ -9,11 +9,11 @@ import click
 from . import __prog__
 from . import __version__
 from . import data as Data
+from . import dispatcher as Dispatcher
 from . import encoder as Encoder
 from . import protocol as Protocol
 from . import templater as Templater
 from .configuration import Configuration
-from .dispatcher import Dispatcher
 
 
 def validate_comma_separated(ctx, param, value):
@@ -102,16 +102,14 @@ def fuzz():
     data = encode(data)
 
     # Initialize a dispatcher
-    dispatcher = Dispatcher(Configuration.CONFIG)
+    dispatch = Dispatcher.init(Configuration.CONFIG)
 
     # Initialize a protocol adapter
     adapt = Protocol.init(Configuration.CONFIG)
 
     # Dispatch the payloads
     for payload in Templater.render(templates, data):
-        dispatcher.connect()
-        dispatcher.dispatch(adapt(payload))
-        dispatcher.close()
+        dispatch(adapt(payload))
 
 
 if __name__ == '__main__':

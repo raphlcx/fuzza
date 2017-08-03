@@ -1,29 +1,29 @@
 import unittest
 
-from fuzza.dispatcher import Dispatcher
+from fuzza.dispatcher import init
 
 
 class TestDispatcher(unittest.TestCase):
 
     def test_dynamic_module_import_success(self):
-        disp_module = 'fuzza.dispatcher._tcp'
+        dispatcher = 'fuzza.dispatcher._tcp'
         config = {
-            'dispatcher': disp_module
+            'dispatcher': dispatcher
         }
-        disp = Dispatcher(config)
+        dispatch = init(config)
 
         self.assertEqual(
-            disp._loaded_dispatcher.__name__,
-            disp_module
+            dispatch.__closure__[0].cell_contents.__name__,
+            dispatcher
         )
 
     def test_empty_dispatcher_config_defaults_to_tcp(self):
-        disp_module = 'fuzza.dispatcher._tcp'
-        disp = Dispatcher({})
+        dispatcher = 'fuzza.dispatcher._tcp'
+        dispatch = init({})
 
         self.assertEqual(
-            disp._loaded_dispatcher.__name__,
-            disp_module
+            dispatch.__closure__[0].cell_contents.__name__,
+            dispatcher
         )
 
     def test_dispatcher_receives_target_host_port(self):
@@ -31,10 +31,10 @@ class TestDispatcher(unittest.TestCase):
             'host': 'samplehost',
             'port': 1000
         }
-        disp = Dispatcher(config)
+        dispatch = init(config)
         expected = ('samplehost', 1000)
 
         self.assertTupleEqual(
-            disp._target,
+            dispatch.__closure__[1].cell_contents,
             expected
         )
