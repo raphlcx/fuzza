@@ -24,18 +24,6 @@ class TestConfiguration(unittest.TestCase):
             config
         )
 
-    def test_configuration_get(self):
-        config = {
-            'a': 1,
-            'b': 2
-        }
-        Configuration.load(config)
-
-        self.assertEqual(
-            Configuration.get('a'),
-            config.get('a')
-        )
-
     def test_get_configuration_file_path(self):
         self.assertEqual(
             str(Configuration.get_cfile_path('/abc/path1', 'yaml')),

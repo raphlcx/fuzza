@@ -64,19 +64,6 @@ class Configuration(object):
                 Configuration.CONFIG[key] = value
 
     @staticmethod
-    def get(key):
-        """
-        Retrieve configuration value.
-
-        Args:
-            key: Key to access the configuration value.
-
-        Returns:
-            The value associated with the supplied key.
-        """
-        return Configuration.CONFIG.get(key)
-
-    @staticmethod
     def to_file(directory='', extension='yaml'):
         """
         Store configurations to file.

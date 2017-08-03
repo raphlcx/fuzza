@@ -45,14 +45,13 @@ def read(config):
 
 def render(templates, data):
     """
-    Render data into template to generate payload. This is a generator
-    and yields the payload in each iteration.
+    Render data into template to generate payload.
 
     Args:
         templates (list): A list containing the templates.
         data (list): A list containing the data.
 
-    Returns:
+    Yields:
         str: The payload in bytes literals.
     """
     if not templates:
