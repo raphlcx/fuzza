@@ -13,32 +13,30 @@ LOGGER = get_logger(__name__)
 IS_DEBUG = LOGGER.isEnabledFor(logging.DEBUG)
 
 
-class Protocol(object):
+def init(config):
     """
-    A generic protocol class that loads relevant protocol adapters.
+    Load relevant protocol adapter module.
 
     Args:
         config (dict): The fuzzer configuration.
+
+    Returns:
+        function: The protocol adapter function.
     """
 
-    def __init__(self, config):
+    # Communication protocol type of target communication,
+    # default to using textual adapter
+    protocol = config.get('protocol') or (__package__ + '._textual')
 
-        #: Communication protocol type of target communication,
-        #: default to using textual adapter
-        self._protocol = config.get('protocol') or \
-            __package__ + '._textual'
+    # Imported module for protocol adapter
+    protocol_module = importlib.import_module(protocol)
 
-        #: Imported module for protocol adapter
-        self._loaded_protocol_adapter = importlib.import_module(
-            self._protocol
-        )
+    LOGGER.info(
+        'Target communication protocol: %s',
+        protocol_module.__name__
+    )
 
-        LOGGER.info(
-            'Target communication protocol: %s',
-            self._loaded_protocol_adapter.__name__
-        )
-
-    def adapt(self, payload):
+    def adapt(payload):
         """
         Adapt the payload to bytes representation.
 
@@ -48,4 +46,6 @@ class Protocol(object):
         Returns:
             str: Bytes reprsentation of payload.
         """
-        return self._loaded_protocol_adapter.adapt(payload)
+        return protocol_module.adapt(payload)
+
+    return adapt

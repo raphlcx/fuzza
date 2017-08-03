@@ -11,4 +11,4 @@ The naming of this module can be quite a misnomer, since what it does
 mainnly is executing encoding conversion on payload to retrieve its
 bytes representation.
 """
-from .protocol import Protocol
+from .protocol import init

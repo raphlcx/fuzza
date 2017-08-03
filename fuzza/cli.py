@@ -10,10 +10,10 @@ from . import __prog__
 from . import __version__
 from . import data as Data
 from . import templater as Templater
+from . import protocol as Protocol
 from .configuration import Configuration
 from .dispatcher import Dispatcher
 from .encoder import Encoder
-from .protocol import Protocol
 
 
 def validate_comma_separated(ctx, param, value):
@@ -100,11 +100,11 @@ def fuzz():
     data = encoder.encode(data)
 
     dispatcher = Dispatcher(Configuration.CONFIG)
-    protocol = Protocol(Configuration.CONFIG)
+    adapt = Protocol.init(Configuration.CONFIG)
 
     for payload in Templater.render(templates, data):
         dispatcher.connect()
-        dispatcher.dispatch(protocol.adapt(payload))
+        dispatcher.dispatch(adapt(payload))
         dispatcher.close()
 
 

@@ -1,6 +1,6 @@
 import unittest
 
-from fuzza.protocol import Protocol
+from fuzza.protocol import init
 
 
 class TestProtocol(unittest.TestCase):
@@ -10,18 +10,18 @@ class TestProtocol(unittest.TestCase):
         config = {
             'protocol': proto_module
         }
-        proto = Protocol(config)
+        adapt = init(config)
 
         self.assertEqual(
-            proto._loaded_protocol_adapter.__name__,
+            adapt.__closure__[0].cell_contents.__name__,
             proto_module
         )
 
     def test_empty_protocol_config_defaults_to_textual(self):
         proto_module = 'fuzza.protocol._textual'
-        proto = Protocol({})
+        adapt = init({})
 
         self.assertEqual(
-            proto._loaded_protocol_adapter.__name__,
+            adapt.__closure__[0].cell_contents.__name__,
             proto_module
         )
