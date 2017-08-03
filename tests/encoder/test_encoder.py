@@ -1,6 +1,6 @@
 import unittest
 
-from fuzza.encoder import Encoder
+from fuzza.encoder import init
 
 
 class TestEncoder(unittest.TestCase):
@@ -21,10 +21,13 @@ class TestEncoder(unittest.TestCase):
         config = {
             'encoder': encoders
         }
-        enc = Encoder(config)
+        encode = init(config)
 
         self.assertListEqual(
-            [ld_enc.__name__ for ld_enc in enc._loaded_encoder],
+            [
+                enc_mod.__name__
+                for enc_mod in encode.__closure__[0].cell_contents
+            ],
             encoders
         )
 
@@ -36,7 +39,7 @@ class TestEncoder(unittest.TestCase):
         config = {
             'encoder': encoders
         }
-        enc = Encoder(config)
+        encode = init(config)
 
         expected = [
             b'64476870637942706379427a64484a70626d633d',
@@ -44,14 +47,14 @@ class TestEncoder(unittest.TestCase):
             b'6132747662334278'
         ]
         self.assertListEqual(
-            enc.encode(self.data),
+            encode(self.data),
             expected
         )
 
     def test_empty_encoder_config_returns_original_data(self):
-        enc = Encoder({})
+        encode = init({})
 
         self.assertListEqual(
-            enc.encode(self.data),
+            encode(self.data),
             self.data
         )
