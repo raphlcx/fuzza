@@ -6,6 +6,7 @@ Entry point to the application.
 """
 import click
 
+from . import __description__
 from . import __prog__
 from . import __version__
 from . import data as Data
@@ -27,12 +28,9 @@ def validate_comma_separated(ctx, param, value):
     return value.split(',')
 
 
-@click.group()
+@click.group(help=__description__)
 @click.version_option(version=__version__, prog_name=__prog__)
 def cli():
-    """
-    A generic template-based fuzzer.
-    """
     pass
 
 
