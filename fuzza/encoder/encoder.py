@@ -10,6 +10,7 @@ import logging
 from copy import deepcopy
 
 from ..logger import get_logger
+from ..module_loader import load_module
 
 LOGGER = get_logger(__name__)
 IS_DEBUG = LOGGER.isEnabledFor(logging.DEBUG)
@@ -31,7 +32,11 @@ def init(config):
 
     # Imported modules for each of the encoder
     encoder_modules = [
-        importlib.import_module(enc)
+        load_module(
+            enc,
+            __package__ + '._',
+            ''
+        )
         for enc in encoder
     ]
 

@@ -14,33 +14,28 @@ class TestEncoder(unittest.TestCase):
         ]
 
     def test_dynamic_module_import_success(self):
-        encoders = [
+        config = {
+            'encoder': ['base64', 'hex']
+        }
+        encode = init(config)
+        expected = [
             'fuzza.encoder._base64',
             'fuzza.encoder._hex'
         ]
-        config = {
-            'encoder': encoders
-        }
-        encode = init(config)
 
         self.assertListEqual(
             [
                 enc_mod.__name__
                 for enc_mod in encode.__closure__[0].cell_contents
             ],
-            encoders
+            expected
         )
 
     def test_encoder_able_to_chain(self):
-        encoders = [
-            'fuzza.encoder._base64',
-            'fuzza.encoder._hex'
-        ]
         config = {
-            'encoder': encoders
+            'encoder': ['base64', 'hex']
         }
         encode = init(config)
-
         expected = [
             b'64476870637942706379427a64484a70626d633d',
             b'59574668',

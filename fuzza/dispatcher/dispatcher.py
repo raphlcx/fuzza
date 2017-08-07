@@ -8,6 +8,7 @@ import importlib
 import logging
 
 from ..logger import get_logger
+from ..module_loader import load_module
 
 LOGGER = get_logger(__name__)
 IS_DEBUG = LOGGER.isEnabledFor(logging.DEBUG)
@@ -26,10 +27,14 @@ def init(config):
 
     # Dispatcher specified in configuration, default to
     # using TCP dispatcher
-    dispatcher = config.get('dispatcher') or (__package__ + '._tcp')
+    dispatcher = config.get('dispatcher')
 
     # Imported module for dispatcher
-    dispatcher_module = importlib.import_module(dispatcher)
+    dispatcher_module = load_module(
+        dispatcher,
+        __package__ + '._',
+        __package__ + '._tcp'
+    )
 
     LOGGER.info(
         'Dispatcher to use: %s',

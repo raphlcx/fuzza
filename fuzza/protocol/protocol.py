@@ -8,6 +8,7 @@ import importlib
 import logging
 
 from ..logger import get_logger
+from ..module_loader import load_module
 
 LOGGER = get_logger(__name__)
 IS_DEBUG = LOGGER.isEnabledFor(logging.DEBUG)
@@ -26,10 +27,14 @@ def init(config):
 
     # Communication protocol type of target communication,
     # default to using textual adapter
-    protocol = config.get('protocol') or (__package__ + '._textual')
+    protocol = config.get('protocol')
 
     # Imported module for protocol adapter
-    protocol_module = importlib.import_module(protocol)
+    protocol_module = load_module(
+        protocol,
+        __package__ + '._',
+        __package__ + '._textual'
+    )
 
     LOGGER.info(
         'Target communication protocol: %s',
