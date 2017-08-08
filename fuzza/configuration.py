@@ -26,7 +26,7 @@ class Configuration(object):
     """
 
     CONFIG = {}
-    FILENAME = 'fuzza.conf'
+    FILENAME = 'fuzza.cfg'
 
     def __new__(cls):
         raise Exception(

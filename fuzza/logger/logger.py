@@ -1,6 +1,6 @@
 """
-fuzza.logger
-------------
+fuzza.logger.logger
+-------------------
 
 The module is used as a helper to retrieve a configured logger.
 """
@@ -16,9 +16,7 @@ logging.config.dictConfig(
         (
             Path(__file__) /
             '..' /
-            '..' /
-            'config' /
-            'logging.conf.yaml'
+            'logger.cfg.yaml'
         ).resolve()
     )
 )

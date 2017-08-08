@@ -27,7 +27,7 @@ class TestConfiguration(unittest.TestCase):
     def test_get_configuration_file_path(self):
         self.assertEqual(
             str(Configuration.get_cfile_path('/abc/path1', 'yaml')),
-            '/abc/path1/fuzza.conf.yaml'
+            '/abc/path1/fuzza.cfg.yaml'
         )
 
     def test_empty_configuration_value_is_not_included(self):
