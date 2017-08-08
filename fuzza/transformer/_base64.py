@@ -1,15 +1,15 @@
 """
-fuzza.encoder._base64
----------------------
+fuzza.transformer._base64
+-------------------------
 
-The base64 encoder module.
+The base64 encoding transformer module.
 """
 import base64
 
 
-def encode(data):
+def transform(data):
     """
-    Encode data using base64 encoding.
+    Transform data using base64 encoding.
 
     Args:
         data (list): A list of data in bytes literals.

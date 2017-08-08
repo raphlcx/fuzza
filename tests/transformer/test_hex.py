@@ -1,9 +1,9 @@
 import unittest
 
-from fuzza.encoder._hex import encode
+from fuzza.transformer._hex import transform
 
 
-class TestEncoderHex(unittest.TestCase):
+class TestTransformerHex(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
@@ -20,6 +20,6 @@ class TestEncoderHex(unittest.TestCase):
             b'6b6b6f6f7071'
         ]
         self.assertListEqual(
-            encode(self.data),
+            transform(self.data),
             expected
         )

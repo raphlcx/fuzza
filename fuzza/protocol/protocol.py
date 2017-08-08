@@ -4,7 +4,6 @@ fuzza.protocol.protocol
 
 This module is used to dynamically import protocol adapter modules.
 """
-import importlib
 import logging
 
 from ..logger import get_logger

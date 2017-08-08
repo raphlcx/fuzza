@@ -41,10 +41,10 @@ class ModuleLoaderTest(unittest.TestCase):
     def test_name_clash_stdlib_favors_built_in_module(self):
         module = load_module(
             'base64',
-            'fuzza.encoder._',
+            'fuzza.transformer._',
             ''
         )
         self.assertEqual(
             module.__name__,
-            'fuzza.encoder._base64'
+            'fuzza.transformer._base64'
         )

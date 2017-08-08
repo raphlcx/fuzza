@@ -11,7 +11,7 @@ from . import __prog__
 from . import __version__
 from . import data as Data
 from . import dispatcher as Dispatcher
-from . import encoder as Encoder
+from . import transformer as Transformer
 from . import protocol as Protocol
 from . import templater as Templater
 from .configuration import Configuration
@@ -66,7 +66,7 @@ def cli():
     '--dispatcher',
     type=str,
     metavar='[dispatcher]',
-    help='Dispatcher module to use.'
+    help='Type of dispatcher to use.'
 )
 @click.option(
     '-r',
@@ -75,11 +75,11 @@ def cli():
     help='Enable dispatcher connection reuse.'
 )
 @click.option(
-    '--encoder',
+    '--transformer',
     type=str,
-    metavar='[encoder[, ...]]',
+    metavar='[transformer[, ...]]',
     callback=validate_comma_separated,
-    help='List of encoder modules to be sequentially applied to fuzz data.'
+    help='List of transformations to be sequentially applied to fuzz data.'
 )
 @click.option(
     '--protocol',
@@ -107,9 +107,9 @@ def fuzz():
     data = Data.read(Configuration.CONFIG)
     templates = Templater.read(Configuration.CONFIG)
 
-    # Encode the data using encoder
-    encode = Encoder.init(Configuration.CONFIG)
-    data = encode(data)
+    # Transform the data using transformer
+    transform = Transformer.init(Configuration.CONFIG)
+    data = transform(data)
 
     # Initialize a dispatcher
     dispatch = Dispatcher.init(Configuration.CONFIG)

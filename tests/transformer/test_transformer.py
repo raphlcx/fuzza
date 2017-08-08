@@ -1,9 +1,9 @@
 import unittest
 
-from fuzza.encoder import init
+from fuzza.transformer import init
 
 
-class TestEncoder(unittest.TestCase):
+class TestTransformer(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
@@ -15,41 +15,41 @@ class TestEncoder(unittest.TestCase):
 
     def test_dynamic_module_import_success(self):
         config = {
-            'encoder': ['base64', 'hex']
+            'transformer': ['base64', 'hex']
         }
-        encode = init(config)
+        transform = init(config)
         expected = [
-            'fuzza.encoder._base64',
-            'fuzza.encoder._hex'
+            'fuzza.transformer._base64',
+            'fuzza.transformer._hex'
         ]
 
         self.assertListEqual(
             [
-                enc_mod.__name__
-                for enc_mod in encode.__closure__[0].cell_contents
+                tfm_mod.__name__
+                for tfm_mod in transform.__closure__[0].cell_contents
             ],
             expected
         )
 
-    def test_encoder_able_to_chain(self):
+    def test_transformer_able_to_chain(self):
         config = {
-            'encoder': ['base64', 'hex']
+            'transformer': ['base64', 'hex']
         }
-        encode = init(config)
+        transform = init(config)
         expected = [
             b'64476870637942706379427a64484a70626d633d',
             b'59574668',
             b'6132747662334278'
         ]
         self.assertListEqual(
-            encode(self.data),
+            transform(self.data),
             expected
         )
 
-    def test_empty_encoder_config_returns_original_data(self):
-        encode = init({})
+    def test_empty_transformer_config_returns_original_data(self):
+        transform = init({})
 
         self.assertListEqual(
-            encode(self.data),
+            transform(self.data),
             self.data
         )

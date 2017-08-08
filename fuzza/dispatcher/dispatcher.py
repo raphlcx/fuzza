@@ -4,7 +4,6 @@ fuzza.dispatcher.dispatcher
 
 This module is used to dynamically import dispatcher modules.
 """
-import importlib
 import logging
 
 from ..logger import get_logger

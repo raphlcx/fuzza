@@ -1,15 +1,15 @@
 """
-fuzza.encoder._hex
-------------------
+fuzza.transformer._hex
+----------------------
 
-The hex encoder module.
+The hex encoding transformer module.
 """
 import binascii
 
 
-def encode(data):
+def transform(data):
     """
-    Encode data using hex encoding.
+    Transform data using hex encoding.
 
     Args:
         data (list): A list of data in bytes literals.

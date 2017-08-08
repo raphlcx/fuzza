@@ -1,9 +1,9 @@
 import unittest
 
-from fuzza.encoder._base64 import encode
+from fuzza.transformer._base64 import transform
 
 
-class TestEncoderBase64(unittest.TestCase):
+class TestTransformerBase64(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
@@ -20,6 +20,6 @@ class TestEncoderBase64(unittest.TestCase):
             b'a2tvb3Bx'
         ]
         self.assertListEqual(
-            encode(self.data),
+            transform(self.data),
             expected
         )
