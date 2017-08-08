@@ -118,6 +118,7 @@ def fuzz():
     adapt = Protocol.init(Configuration.CONFIG)
 
     # Dispatch the payloads
+    payload = b''
     for payload in Templater.render(templates, data):
         dispatch(adapt(payload))
 
