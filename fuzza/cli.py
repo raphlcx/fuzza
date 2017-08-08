@@ -60,32 +60,32 @@ def cli():
     '--template-path',
     type=str,
     metavar='[path]',
-    help='Path containing template files. Support glob patterns.'
+    help='Path containing template files. Support glob patterns. []'
 )
 @click.option(
     '--dispatcher',
     type=str,
     metavar='[dispatcher]',
-    help='Type of dispatcher to use.'
+    help='Type of dispatcher to use. [tcp]'
 )
 @click.option(
     '-r',
     '--dispatcher-reuse',
     is_flag=True,
-    help='Enable dispatcher connection reuse.'
+    help='Enable dispatcher connection reuse. [False]'
 )
 @click.option(
     '--transformer',
     type=str,
     metavar='[transformer[, ...]]',
     callback=validate_comma_separated,
-    help='List of transformations to be sequentially applied to fuzz data.'
+    help='List of transformations to be sequentially applied to fuzz data. []'
 )
 @click.option(
     '--protocol',
     type=str,
     metavar='[protocol]',
-    help='Type of communication protocol.'
+    help='Type of communication protocol. [textual]'
 )
 def init(**kwargs):
     """
