@@ -70,7 +70,7 @@ def cli():
 )
 @click.option(
     '-r',
-    '--reuse',
+    '--dispatcher-reuse',
     is_flag=True,
     help='Enable dispatcher connection reuse.'
 )
