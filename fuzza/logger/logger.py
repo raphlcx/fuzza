@@ -16,7 +16,7 @@ logging.config.dictConfig(
         (
             Path(__file__) /
             '..' /
-            'logger.cfg.yaml'
+            'logger.cfg.yml'
         ).resolve()
     )
 )

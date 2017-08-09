@@ -26,7 +26,7 @@ setup(
         exclude=["*.tests", "*.tests.*", "tests.*", "tests"]
     ),
     package_data={
-        'fuzza.logger': ['logger.cfg.yaml']
+        'fuzza.logger': ['logger.cfg.yml']
     },
     install_requires=REQUIRES,
     zip_safe=False,
