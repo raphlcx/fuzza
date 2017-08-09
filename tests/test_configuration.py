@@ -1,32 +1,26 @@
 import unittest
 
-from fuzza.configuration import Configuration
+from fuzza.configuration import _get_cfile_path
+from fuzza.configuration import load
 
 
 class TestConfiguration(unittest.TestCase):
-
-    def tearDown(self):
-        Configuration.CONFIG = {}
-
-    def test_class_instantiation_fails(self):
-        with self.assertRaises(Exception):
-            Configuration()
 
     def test_configuration_loading(self):
         config = {
             'a': 1,
             'b': 2
         }
-        Configuration.load(config)
+        conf = load(config)
 
         self.assertDictEqual(
-            Configuration.CONFIG,
+            conf,
             config
         )
 
     def test_get_configuration_file_path(self):
         self.assertEqual(
-            str(Configuration.get_cfile_path('/abc/path1', 'yaml')),
+            str(_get_cfile_path('/abc/path1', 'yaml')),
             '/abc/path1/fuzza.cfg.yaml'
         )
 
@@ -36,9 +30,9 @@ class TestConfiguration(unittest.TestCase):
             'b': '',
             'c': None
         }
-        Configuration.load(config)
+        conf = load(config)
 
         self.assertDictEqual(
-            Configuration.CONFIG,
+            conf,
             {'a': 1}
         )

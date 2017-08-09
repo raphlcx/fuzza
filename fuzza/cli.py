@@ -9,12 +9,12 @@ import click
 from . import __description__
 from . import __prog__
 from . import __version__
+from . import configuration as Configuration
 from . import data as Data
 from . import dispatcher as Dispatcher
 from . import transformer as Transformer
 from . import protocol as Protocol
 from . import templater as Templater
-from .configuration import Configuration
 
 
 def validate_comma_separated(ctx, param, value):
@@ -97,8 +97,9 @@ def init(**kwargs):
     """
     Create a fuzzer configuration file.
     """
-    Configuration.load(kwargs)
-    Configuration.to_file()
+    # Store configuration to file
+    conf = Configuration.load(kwargs)
+    Configuration.to_file(conf)
 
 
 @cli.command()
@@ -106,22 +107,23 @@ def fuzz():
     """
     Execute the fuzzer.
     """
+    # Read configuration from file
     conf = Configuration.from_file()
-    Configuration.load(conf)
+    conf = Configuration.load(conf)
 
     # Load fuzz data and template
-    data = Data.read(Configuration.CONFIG)
-    templates = Templater.read(Configuration.CONFIG)
+    data = Data.read(conf)
+    templates = Templater.read(conf)
 
     # Transform the data using transformer
-    transform = Transformer.init(Configuration.CONFIG)
+    transform = Transformer.init(conf)
     data = transform(data)
 
     # Initialize a dispatcher
-    dispatch = Dispatcher.init(Configuration.CONFIG)
+    dispatch = Dispatcher.init(conf)
 
     # Initialize a protocol adapter
-    adapt = Protocol.init(Configuration.CONFIG)
+    adapt = Protocol.init(conf)
 
     # Dispatch the payloads
     payload = b''

@@ -1,3 +1,10 @@
+"""
+fuzza.configuration
+-------------------
+
+This module is used to handle operations related to reading, storing,
+and writing of fuzzer configuration.
+"""
 import logging
 
 from pathlib import Path
@@ -9,108 +16,96 @@ from .logger import get_logger
 LOGGER = get_logger(__name__)
 IS_DEBUG = LOGGER.isEnabledFor(logging.DEBUG)
 
+# The filename of configuration file
+FILENAME = 'fuzza.cfg'
 
-class Configuration(object):
+
+def _get_cfile_path(directory, extension):
     """
-    A static object for storing operational configurations.
+    Returns the path to configuration file.
 
-    This class is essentially a global object holding the configuration
-    values. Hence, it should never be mutated after it has benn set
-    initially.
+    Args:
+        directory (str): Directory containing the configuration file.
+        extension (str): The filename extension of the configuration
+            file.
 
-    Future improvemnet may use an immutable `dict` to hold the
-    configuration values.
-
-    Raises:
-        Exception: If this class is attempted to be instantiated.
+    Returns:
+        Path to the configuration file.
     """
+    return (
+        Path(directory) /
+        (FILENAME + '.' + extension)
+    )
 
-    CONFIG = {}
-    FILENAME = 'fuzza.cfg'
 
-    def __new__(cls):
-        raise Exception(
-            'Attempting to initialize non-instantiable class',
-            __name__
-        )
+def load(config):
+    """
+    Load and normalize a raw configuration. Empty values in the raw
+    configuration are omitted.
 
-    @staticmethod
-    def get_cfile_path(directory, extension):
-        """
-        Returns the path to configuration file.
+    Args:
+        config (dict): The fuzzer raw configuration.
 
-        Args:
-            directory: Directory containing the configuration file.
-            extension: The extension of the configuration file.
+    Returns:
+        dict: The normalized configuration.
+    """
+    conf = {}
 
-        Returns:
-            Path to the configuration file.
-        """
-        return (
-            Path(directory) /
-            (Configuration.FILENAME + '.' + extension)
-        )
+    for key, value in config.items():
+        if value is not None and value != '':
+            conf[key] = value
 
-    @staticmethod
-    def load(config):
-        """
-        Load configuration into the static configuration object.
+    return conf
 
-        Args:
-            config: A `dict` containing the configurations.
-        """
-        for key, value in config.items():
-            if value is not None and value != '':
-                Configuration.CONFIG[key] = value
 
-    @staticmethod
-    def to_file(directory='', extension='yaml'):
-        """
-        Store configurations to file.
+def to_file(config, dest_dir='', extension='yaml'):
+    """
+    Store configuration to file.
 
-        Args:
-            directory: Directory to store the configuration file.
-                Defaults to empty string, which is the current
-                directory of script execution.
-            extension: The extension determining the configuration
-                file format. Defaults to 'yaml'.
-        """
-        cfile = Configuration.get_cfile_path(directory, extension)
+    Args:
+        config (dict): The configuration to be stored.
+        dest_dir (str): Directory to store the configuration file.
+            Defaults to empty string, which is the current
+            src_dir of script execution.
+        extension (str): The extension determining the configuration
+            file format. Defaults to 'yaml'.
+    """
+    cfile = _get_cfile_path(dest_dir, extension)
 
-        if extension == 'yaml':
-            yaml = YAML(pure=True)
-            yaml.dump(Configuration.CONFIG, cfile)
+    if extension == 'yaml':
+        yaml = YAML(pure=True)
+        yaml.dump(config, cfile)
 
-        LOGGER.info('Stored configuration to file: %s', cfile)
+    LOGGER.info('Stored configuration to file: %s', cfile)
 
-        if IS_DEBUG:
-            LOGGER.debug('Config: %s', Configuration.CONFIG)
+    if IS_DEBUG:
+        LOGGER.debug('Config: %s', config)
 
-    @staticmethod
-    def from_file(directory='', extension='yaml'):
-        """
-        Read configurations from file.
 
-        Args:
-            directory: Directory containing the configuration file.
-                Defaults to empty string, which is the current
-                directory of script execution.
-            extension: The extension determining the configuration
-                file format. Defaults to 'yaml'.
+def from_file(src_dir='', extension='yaml'):
+    """
+    Read configuration from file.
 
-        Returns:
-            The configurations read from file.
-        """
-        cfile = Configuration.get_cfile_path(directory, extension)
+    Args:
+        src_dir (str): Directory containing the configuration file.
+            Defaults to empty string, which is the current
+            directory of script execution.
+        extension (str): The extension determining the configuration
+            file format. Defaults to 'yaml'.
 
-        conf = {}
-        if extension == 'yaml':
-            yaml = YAML(typ='safe', pure=True)
-            conf = yaml.load(cfile)
+    Returns:
+        The configuration read from file.
+    """
+    cfile = _get_cfile_path(src_dir, extension)
 
-        LOGGER.info('Read configuration from file: %s', cfile)
+    conf = {}
+    if extension == 'yaml':
+        yaml = YAML(typ='safe', pure=True)
+        conf = yaml.load(cfile)
 
-        if IS_DEBUG:
-            LOGGER.debug('Config: %s', conf)
+    LOGGER.info('Read configuration from file: %s', cfile)
 
-        return conf
+    if IS_DEBUG:
+        LOGGER.debug('Config: %s', conf)
+
+    return conf
