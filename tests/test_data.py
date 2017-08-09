@@ -26,3 +26,19 @@ class TestData(unittest.TestCase):
             data,
             expected
         )
+
+    def test_read_data_in_chunk(self):
+        config = {
+            'data_path': self.data_path,
+            'data_chunk': True
+        }
+        data = read(config)
+        expected = [
+            b'data1a\ndata1b\ndata1c\n',
+            b'data2a\n',
+            b'data3a\ndata3b\n'
+        ]
+        self.assertListEqual(
+            data,
+            expected
+        )

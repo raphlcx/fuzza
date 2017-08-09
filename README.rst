@@ -57,6 +57,9 @@ The ``init`` subcommand generates a configuration file to be consumed by the ``f
       --data-path <path>              Path containing fuzz data. Support glob
                                       patterns.
 
+      -c, --data-chunk                Read each fuzz data file in chunk, instead
+                                      of line-by-line. [False]
+
       --template-path [path]          Path containing template files. Support glob
                                       patterns. []
 
@@ -78,10 +81,12 @@ If multiple templates are found, each template will be iterated through to indiv
 
 In the case of unspecified configuration:
 
-* Dispatcher defaults to TCP dispatcher
-* Protocol defaults to textual
+* Data chunk mode reading defaults to ``False``
+* Template defaults to ``None``, meaning no templates are to be used
+* Dispatcher defaults to using TCP dispatcher
+* Dispatcher connection reuse defaults to ``False``
 * Transformer defaults to an empty list
-* Template defaults to None, meaning no templates are to be used
+* Protocol defaults to textual
 
 ``fuzz``
 --------

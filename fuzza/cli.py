@@ -57,6 +57,12 @@ def cli():
     help='Path containing fuzz data. Support glob patterns.'
 )
 @click.option(
+    '-c',
+    '--data-chunk',
+    is_flag=True,
+    help='Read each fuzz data file in chunk, instead of line-by-line. [False]'
+)
+@click.option(
     '--template-path',
     type=str,
     metavar='[path]',

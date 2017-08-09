@@ -35,7 +35,6 @@ def load_module(name, namespace_prefix, default_name):
     if name is None:
         spec = importlib.util.find_spec(default_name)
     else:
-
         spec = importlib.util.find_spec(namespace_prefix + name)
 
         if spec is None:

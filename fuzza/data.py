@@ -30,11 +30,15 @@ def read(config):
         list: The list of data.
     """
     data_path = config.get('data_path')
+    data_chunk = config.get('data_chunk') or False
     data = []
 
     for dfile in glob.iglob(data_path):
         with io.open(dfile, 'rb') as f:
-            data += f.read().splitlines()
+            if data_chunk:
+                data.append(f.read())
+            else:
+                data += f.read().splitlines()
 
     LOGGER.info(
         'Found %d data from %s',
