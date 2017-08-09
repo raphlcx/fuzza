@@ -14,8 +14,8 @@ Fuzza itself is a fuzzing framework, which is broken down into a few components:
 * **Data** - Read fuzz data from external sources
 * **Transformer** - Apply transformation to fuzz data, e.g. base64 encoding, hex encoding
 * **Templater** - Consume template files, render fuzz data to templates
-* **Dispatcher** - Establish connection to fuzz target and dispatch fuzz payload
 * **Protocol adapter** - Adapt payload to communication protocol type
+* **Dispatcher** - Establish connection to fuzz target and dispatch fuzz payload
 
 Installing
 ==========
