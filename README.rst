@@ -133,7 +133,7 @@ Given the template file named ``sample.template``::
 
     Host: $fuzzdata
 
-and the configuration file ``fuzza.cfg.yaml``::
+and the configuration file ``fuzza.cfg.yml``::
 
     host: 127.0.0.1
     port: 8000
@@ -153,7 +153,7 @@ Given the template file named ``sample2.template``::
 
     31 32 33 $fuzzdata
 
-and the configuration file ``fuzza.cfg.yaml``::
+and the configuration file ``fuzza.cfg.yml``::
 
     host: 127.0.0.1
     port: 4343

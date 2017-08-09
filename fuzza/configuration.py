@@ -58,7 +58,7 @@ def load(config):
     return conf
 
 
-def to_file(config, dest_dir='', extension='yaml'):
+def to_file(config, dest_dir='', extension='yml'):
     """
     Store configuration to file.
 
@@ -68,11 +68,11 @@ def to_file(config, dest_dir='', extension='yaml'):
             Defaults to empty string, which is the current
             src_dir of script execution.
         extension (str): The extension determining the configuration
-            file format. Defaults to 'yaml'.
+            file format. Defaults to 'yml'.
     """
     cfile = _get_cfile_path(dest_dir, extension)
 
-    if extension == 'yaml':
+    if extension == 'yml':
         yaml = YAML(pure=True)
         yaml.dump(config, cfile)
 
@@ -82,7 +82,7 @@ def to_file(config, dest_dir='', extension='yaml'):
         LOGGER.debug('Config: %s', config)
 
 
-def from_file(src_dir='', extension='yaml'):
+def from_file(src_dir='', extension='yml'):
     """
     Read configuration from file.
 
@@ -91,7 +91,7 @@ def from_file(src_dir='', extension='yaml'):
             Defaults to empty string, which is the current
             directory of script execution.
         extension (str): The extension determining the configuration
-            file format. Defaults to 'yaml'.
+            file format. Defaults to 'yml'.
 
     Returns:
         The configuration read from file.
@@ -99,7 +99,7 @@ def from_file(src_dir='', extension='yaml'):
     cfile = _get_cfile_path(src_dir, extension)
 
     conf = {}
-    if extension == 'yaml':
+    if extension == 'yml':
         yaml = YAML(typ='safe', pure=True)
         conf = yaml.load(cfile)
 
