@@ -2,6 +2,9 @@
 Fuzza
 =====
 
+.. image:: https://travis-ci.org/Raphx/fuzza.svg?branch=master
+    :target: https://travis-ci.org/Raphx/fuzza
+
 A generic template-based fuzzer.
 
 .. contents:: :local:

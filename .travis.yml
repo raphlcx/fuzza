@@ -1,0 +1,7 @@
+sudo: false
+language: python
+cache: pip
+python:
+- 3.6
+script:
+- python -m unittest
