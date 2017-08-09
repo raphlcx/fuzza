@@ -76,7 +76,7 @@ def init(config):
             str: The received responses, in bytes literals, from after
                 the dispatching.
         """
-        LOGGER.info('Sending > %s', payload)
+        LOGGER.info('Sending %d bytes > %s', len(payload), payload)
 
         nonlocal con
 
@@ -95,6 +95,6 @@ def init(config):
         if not reuse or ensure_close:
             dispatcher_module.close(con)
 
-        LOGGER.info('Received > %s', response)
+        LOGGER.info('Received %d bytes > %s', len(response), response)
 
     return dispatch
