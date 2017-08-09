@@ -5,6 +5,9 @@ Fuzza
 .. image:: https://travis-ci.org/Raphx/fuzza.svg?branch=master
     :target: https://travis-ci.org/Raphx/fuzza
 
+.. image:: https://codecov.io/gh/Raphx/fuzza/branch/master/graph/badge.svg
+  :target: https://codecov.io/gh/Raphx/fuzza
+
 A generic template-based fuzzer.
 
 .. contents:: :local:
