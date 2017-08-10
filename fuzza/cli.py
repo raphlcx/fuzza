@@ -40,7 +40,7 @@ def cli():
     type=str,
     metavar='<host>',
     prompt='Target hostname or IP',
-    help='The hostname of target to fuzz.'
+    help='The hostname or IP address of target to fuzz.'
 )
 @click.option(
     '--port',

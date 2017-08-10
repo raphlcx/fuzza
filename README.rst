@@ -59,7 +59,7 @@ The ``init`` subcommand generates a configuration file to be consumed by the ``f
 
     Options:
 
-      --host <host>                   The hostname of target to fuzz.
+      --host <host>                   The hostname or IP address of target to fuzz.
 
       --port <port>                   The port of target to fuzz.
 
