@@ -11,8 +11,8 @@ import logging
 
 from .logger import get_logger
 
-LOGGER = get_logger(__name__)
-IS_DEBUG = LOGGER.isEnabledFor(logging.DEBUG)
+LOG = get_logger(__name__)
+IS_DEBUG = LOG.isEnabledFor(logging.DEBUG)
 
 
 def read(config):
@@ -29,8 +29,12 @@ def read(config):
     Returns:
         list: The list of data.
     """
-    data_path = config.get('data_path')
     data_chunk = config.get('data_chunk') or False
+    LOG.info(
+        'Read data in chunk: %s', data_chunk
+    )
+
+    data_path = config.get('data_path')
     data = []
 
     for dfile in glob.iglob(data_path):
@@ -40,7 +44,7 @@ def read(config):
             else:
                 data += f.read().splitlines()
 
-    LOGGER.info(
+    LOG.info(
         'Found %d data from %s',
         len(data),
         data_path

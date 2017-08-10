@@ -13,8 +13,8 @@ from ruamel.yaml import YAML
 
 from .logger import get_logger
 
-LOGGER = get_logger(__name__)
-IS_DEBUG = LOGGER.isEnabledFor(logging.DEBUG)
+LOG = get_logger(__name__)
+IS_DEBUG = LOG.isEnabledFor(logging.DEBUG)
 
 # The filename of configuration file
 FILENAME = 'fuzza.cfg'
@@ -76,10 +76,10 @@ def to_file(config, dest_dir='', extension='yml'):
         yaml = YAML(pure=True)
         yaml.dump(config, cfile)
 
-    LOGGER.info('Stored configuration to file: %s', cfile)
+    LOG.info('Stored configuration to file: %s', cfile)
 
     if IS_DEBUG:
-        LOGGER.debug('Config: %s', config)
+        LOG.debug('Config: %s', config)
 
 
 def from_file(src_dir='', extension='yml'):
@@ -103,9 +103,9 @@ def from_file(src_dir='', extension='yml'):
         yaml = YAML(typ='safe', pure=True)
         conf = yaml.load(cfile)
 
-    LOGGER.info('Read configuration from file: %s', cfile)
+    LOG.info('Read configuration from file: %s', cfile)
 
     if IS_DEBUG:
-        LOGGER.debug('Config: %s', conf)
+        LOG.debug('Config: %s', conf)
 
     return conf

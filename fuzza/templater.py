@@ -11,8 +11,8 @@ import logging
 
 from .logger import get_logger
 
-LOGGER = get_logger(__name__)
-IS_DEBUG = LOGGER.isEnabledFor(logging.DEBUG)
+LOG = get_logger(__name__)
+IS_DEBUG = LOG.isEnabledFor(logging.DEBUG)
 
 
 def read(config):
@@ -34,7 +34,7 @@ def read(config):
             with io.open(tfile, 'rb') as f:
                 templates.append(f.read())
 
-    LOGGER.info(
+    LOG.info(
         'Found %d templates from %s',
         len(templates),
         template_path

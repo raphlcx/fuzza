@@ -11,8 +11,8 @@ from copy import deepcopy
 from ..logger import get_logger
 from ..module_loader import load_module
 
-LOGGER = get_logger(__name__)
-IS_DEBUG = LOGGER.isEnabledFor(logging.DEBUG)
+LOG = get_logger(__name__)
+IS_DEBUG = LOG.isEnabledFor(logging.DEBUG)
 
 
 def init(config):
@@ -39,7 +39,7 @@ def init(config):
         for tfm in transformer
     ]
 
-    LOGGER.info(
+    LOG.info(
         'Transformers to apply: %s',
         [tfm_mod.__name__ for tfm_mod in transformer_modules]
     )

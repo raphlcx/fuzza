@@ -9,8 +9,8 @@ import logging
 from ..logger import get_logger
 from ..module_loader import load_module
 
-LOGGER = get_logger(__name__)
-IS_DEBUG = LOGGER.isEnabledFor(logging.DEBUG)
+LOG = get_logger(__name__)
+IS_DEBUG = LOG.isEnabledFor(logging.DEBUG)
 
 
 def init(config):
@@ -35,7 +35,7 @@ def init(config):
         __package__ + '._tcp'
     )
 
-    LOGGER.info(
+    LOG.info(
         'Dispatcher to use: %s',
         dispatcher_module.__name__
     )
@@ -44,7 +44,7 @@ def init(config):
     # default to ``False``
     reuse = config.get('dispatcher_reuse') or False
 
-    LOGGER.info(
+    LOG.info(
         'Dispatcher connection reuse: %s',
         reuse
     )
@@ -54,7 +54,7 @@ def init(config):
         config.get('host'),
         config.get('port')
     )
-    LOGGER.info(
+    LOG.info(
         'Dispatch target: %s',
         target
     )
@@ -76,7 +76,7 @@ def init(config):
             str: The received responses, in bytes literals, from after
                 the dispatching.
         """
-        LOGGER.info('Sending %d bytes > %s', len(payload), payload)
+        LOG.info('Sending %d bytes > %s', len(payload), payload)
 
         nonlocal con
 
@@ -95,6 +95,6 @@ def init(config):
         if not reuse or ensure_close:
             dispatcher_module.close(con)
 
-        LOGGER.info('Received %d bytes > %s', len(response), response)
+        LOG.info('Received %d bytes > %s', len(response), response)
 
     return dispatch
