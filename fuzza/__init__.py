@@ -8,7 +8,7 @@ A generic template-based fuzzer.
 __prog__ = 'fuzza'
 
 # Script version
-__version__ = '0.0.1'
+__version__ = '0.1.0'
 
 # Description
 __description__ = 'A generic template-based fuzzer.'
