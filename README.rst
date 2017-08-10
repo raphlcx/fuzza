@@ -2,11 +2,14 @@
 Fuzza
 =====
 
-.. image:: https://travis-ci.org/Raphx/fuzza.svg?branch=master
+.. image:: https://img.shields.io/travis/Raphx/fuzza/master.svg?style=flat-square
     :target: https://travis-ci.org/Raphx/fuzza
 
-.. image:: https://codecov.io/gh/Raphx/fuzza/branch/master/graph/badge.svg
+.. image:: https://img.shields.io/codecov/c/github/Raphx/fuzza/master.svg?style=flat-square
   :target: https://codecov.io/gh/Raphx/fuzza
+
+.. image:: https://img.shields.io/github/license/Raphx/fuzza.svg?style=flat-square
+  :target: LICENSE
 
 A generic template-based fuzzer.
 
@@ -257,8 +260,3 @@ Specify in configuration file::
     host: 127.0.0.1
     port: 80
     protocol: my_protocol
-
-License
-=======
-
-`MIT <LICENSE>`_
