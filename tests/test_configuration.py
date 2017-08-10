@@ -48,6 +48,7 @@ class TestConfiguration(unittest.TestCase):
         )
 
     def test_configuration_to_and_from_file(self):
+        # Involves file IO
         config = {
             'a': 1,
             'b': 'somestring',

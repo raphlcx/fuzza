@@ -14,6 +14,7 @@ class TestData(unittest.TestCase):
         cls.data_path = path
 
     def test_able_to_read_data_from_files(self):
+        # Involves file IO
         config = {
             'data_path': self.data_path
         }

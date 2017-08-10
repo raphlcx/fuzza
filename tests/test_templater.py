@@ -15,6 +15,7 @@ class TestTemplater(unittest.TestCase):
         cls.template_path = path
 
     def test_able_to_read_template_from_files(self):
+        # Involves file IO
         config = {
             'template_path': self.template_path
         }
