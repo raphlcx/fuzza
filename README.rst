@@ -15,16 +15,26 @@ A generic template-based fuzzer.
 
 .. contents:: :local:
 
+Why another fuzzer
+==================
+
+Fuzza attempts to make fuzzing as simple and configurable as possible. It is:
+
+* Data independent. Fuzza does not generate its own data. It is responsible for only carrying out fuzzing sessions.
+* Platform agnostic. It aims to be used to fuzz all kind of protocols, and not constrained to fuzz only a certain few.
+* Template based. Fuzzing grammar is defined in a plain text template file, without requiring any application-specific template construction grammar.
+* Configuration driven. Fuzz parameters are specified in a configuration file, allowing more fine-grained controls without touching the source.
+
 How it works
 ============
 
-Fuzza itself is a fuzzing framework, which is broken down into a few components:
+Fuzza carries out fuzzing based on the configurations specified in its YAML configuration file, named ``fuzza.cfg.yml``. It works sequentially as follows:
 
-* **Data** - Read fuzz data from external sources
-* **Transformer** - Apply transformation to fuzz data, e.g. base64 encoding, hex encoding
-* **Templater** - Consume template files, render fuzz data to templates
-* **Protocol adapter** - Adapt payload to communication protocol type
-* **Dispatcher** - Establish connection to fuzz target and dispatch fuzz payload
+1. Read data from data files
+2. Read templates from template files
+3. Apply necessary transformations to data
+4. For each of the template found, render each with all the data available, resulting in a payload individually
+5. Dispatch the payload to the fuzz target
 
 Installing
 ==========
@@ -111,6 +121,17 @@ The fuzz command does not have any options available. It takes the configuration
     Options:
 
       --help  Show this message and exit.
+
+Architecture
+============
+
+Fuzza itself is a fuzzing framework, which is broken down into a few components:
+
+* **Data** - Read fuzz data from external sources
+* **Transformer** - Apply transformation to fuzz data, e.g. base64 encoding, hex encoding
+* **Templater** - Consume template files, render fuzz data to templates
+* **Protocol adapter** - Adapt payload to communication protocol type
+* **Dispatcher** - Establish connection to fuzz target and dispatch fuzz payload
 
 Templating
 ==========
