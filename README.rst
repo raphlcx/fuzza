@@ -47,6 +47,8 @@ Ensure Python >= 3.6 is installed, then execute the following commands::
 
     python setup.py install
 
+Note: For installation on Windows, ensure that VC++ build tools (or Visual Studio) is installed. You can get it `here <http://landinghub.visualstudio.com/visual-cpp-build-tools>`_.
+
 If installation is successfull, the program name and version should be printed out on the following command::
 
     fuzza --version
