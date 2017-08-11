@@ -125,7 +125,7 @@ The fuzz command does not have any options available. It takes the configuration
 Architecture
 ============
 
-Fuzza itself is a fuzzing framework, which is broken down into a few components:
+Fuzza itself is a fuzzing application, which is broken down into a few components:
 
 * **Data** - Read fuzz data from external sources
 * **Transformer** - Apply transformation to fuzz data, e.g. base64 encoding, hex encoding
