@@ -201,6 +201,27 @@ Here's what happens sequentially:
 4. Since communication protocol type is binary, the protocol adapter kicks in to convert the hex string payload to its binary value representation.
 5. The payload is then dispatched.
 
+Built-in modules
+================
+
+Fuzza provides some built-in modules for some of its components. Custom modules can also be provided, check `Extensibility`_.
+
+Below are the modules provided for each of the component:
+
+Transformer
+
+* base64
+* hex
+
+Dispatcher
+
+* tcp
+
+Protocol adapter:
+
+* textual
+* binary
+
 Extensibility
 =============
 
