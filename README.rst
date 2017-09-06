@@ -11,9 +11,12 @@ Fuzza
 .. image:: https://img.shields.io/github/license/Raphx/fuzza.svg?style=flat-square
   :target: LICENSE
 
-A generic template-based fuzzer.
-
 .. contents:: :local:
+
+Fuzza?
+======
+
+A generic template-based fuzzer.
 
 Why another fuzzer
 ==================
