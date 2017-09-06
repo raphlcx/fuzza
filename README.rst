@@ -39,6 +39,11 @@ Fuzza carries out fuzzing based on the configurations specified in its YAML conf
 Installing
 ==========
 
+Installation can be done on the machine locally via Python package installation, or skipped entirely through the use of Docker image.
+
+Local setup
+-----------
+
 Ensure Python >= 3.6 is installed, then execute the following commands::
 
     git clone https://github.com/Raphx/fuzza.git
@@ -52,6 +57,23 @@ Note: For installation on Windows, ensure that VC++ build tools (or Visual Studi
 If installation is successfull, the program name and version should be printed out on the following command::
 
     fuzza --version
+
+Using Docker
+------------
+
+Ensure Docker is installed.
+
+Build the image::
+
+    docker build . -t fuzza
+
+Now run it::
+
+    docker run --rm -v $(pwd):/app fuzza
+
+Arguments can be supplied by appending them to the execution command::
+
+    docker run --rm -v $(pwd):/app fuzza --version
 
 Commands
 ========
