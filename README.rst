@@ -8,9 +8,6 @@ Fuzza
 .. image:: https://img.shields.io/codecov/c/github/Raphx/fuzza/master.svg?style=flat-square
   :target: https://codecov.io/gh/Raphx/fuzza
 
-.. image:: https://img.shields.io/github/license/Raphx/fuzza.svg?style=flat-square
-  :target: LICENSE
-
 .. contents:: :local:
 
 Fuzza?
@@ -329,3 +326,8 @@ Specify in configuration file::
     host: 127.0.0.1
     port: 80
     protocol: my_protocol
+
+License
+=======
+
+Fuzza is licensed under `MIT <LICENSE>_`.
