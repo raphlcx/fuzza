@@ -168,5 +168,4 @@ $RECYCLE.BIN/
 
 
 ### Project specific ###
-.anaconda
-.vscode
+.vscode/
