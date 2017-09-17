@@ -330,4 +330,4 @@ Specify in configuration file::
 License
 =======
 
-Fuzza is licensed under `MIT <LICENSE>_`.
+Fuzza is licensed under `MIT <LICENSE>`_.
