@@ -2,12 +2,6 @@
 Fuzza
 =====
 
-.. image:: https://img.shields.io/travis/raphlcx/fuzza/master.svg?style=flat-square
-    :target: https://travis-ci.org/raphlcx/fuzza
-
-.. image:: https://img.shields.io/codecov/c/github/raphlcx/fuzza/master.svg?style=flat-square
-  :target: https://codecov.io/gh/raphlcx/fuzza
-
 .. contents:: :local:
 
 Fuzza?
