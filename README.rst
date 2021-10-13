@@ -2,11 +2,11 @@
 Fuzza
 =====
 
-.. image:: https://img.shields.io/travis/Raphx/fuzza/master.svg?style=flat-square
-    :target: https://travis-ci.org/Raphx/fuzza
+.. image:: https://img.shields.io/travis/raphlcx/fuzza/master.svg?style=flat-square
+    :target: https://travis-ci.org/raphlcx/fuzza
 
-.. image:: https://img.shields.io/codecov/c/github/Raphx/fuzza/master.svg?style=flat-square
-  :target: https://codecov.io/gh/Raphx/fuzza
+.. image:: https://img.shields.io/codecov/c/github/raphlcx/fuzza/master.svg?style=flat-square
+  :target: https://codecov.io/gh/raphlcx/fuzza
 
 .. contents:: :local:
 
@@ -46,7 +46,7 @@ Local setup
 
 Ensure Python >= 3.6 is installed, then execute the following commands::
 
-    git clone https://github.com/Raphx/fuzza.git
+    git clone https://github.com/raphlcx/fuzza.git
 
     cd fuzza
 

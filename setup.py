@@ -19,9 +19,9 @@ setup(
     version=fuzza.__version__,
     description=fuzza.__description__,
     long_description=README,
-    author='C.X. Ling',
-    author_email='rcxng93@hotmail.com',
-    url='https://github.com/Raphx/fuzza.git',
+    author='Ling Cong Xiang',
+    author_email='ralcx@outlook.com',
+    url='https://github.com/raphlcx/fuzza.git',
     packages=find_packages(
         exclude=["*.tests", "*.tests.*", "tests.*", "tests"]
     ),
